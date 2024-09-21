@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Merge Tool apurba.com</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        body.dark-mode {
+            background-color: #2a2a2a;
+            color: #f4f4f4;
+        }
+
+        body:hover {
+            background-color: #d4f1f9;
+        }
+
+        body.dark-mode:hover {
+            background-color: #1a1a1a;
+        }
+
+        /* Keyframes for Animations */
+        @keyframes slideIn {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Container Styling */
+        .container {
+            background-color: #b3dae7;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            border: 3px solid rgb(64, 1, 201);
+            animation: slideIn 0.8s ease-out;
+            transition: background-color 0.5s ease, border-color 0.5s ease;
+        }
+
+        body.dark-mode .container {
+            background-color: #b8d5f2;
+            border-color: #bc0a0a;
+            box-shadow: 0 0 10px rgba(244, 242, 242, 0.922);
+        }
+
+        .container:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Heading with Animation */
+        h1 {
+            font-family: 'Times New Roman', Times, serif;
+            margin-bottom: 20px;
+            font-size: 30px;
+            text-align: center;
+            color: #e31057;
+            transition: color 0.5s ease;
+            animation: slideIn 1s ease-out;
+            font-weight: bold;
+        }
+
+        h1:hover {
+            color: #1f74d6;
+        }
+
+        body.dark-mode h1 {
+            color: #e40d7c;
+            font-weight: bold;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+        }
+
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="file"] {
+            font-weight: bold;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 250px;
+            height: 50px;
+            border-radius: 25px;
+            border: none;
+            background-color: #9766d6;
+            margin-bottom: 15px;
+            transition: background-color 0.5s ease, transform 0.3s ease;
+        }
+
+        input[type="file"]:hover {
+            background: #6fd49b;
+            transform: translateX(10px);
+            
+        }
+
+        body.dark-mode input[type="file"] {
+            background-color: #81da95;
+            color: #0b0b0b;
+            font-weight: bold;
+        }
+        .dark-mode input[type="file"]:hover{
+            background-color: #9766d6;
+        }
+
+        /* Button Styling */
+        button {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            padding: 10px;
+            background-color: #023837;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+            transition: background-color 0.3s ease, font-size 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #92074d;
+            font-size: 20px;
+        }
+
+        body.dark-mode button {
+            background-color: #ab0924;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        body.dark-mode button:hover{
+            background-color: #4d0649;
+        }
+
+        /* Download Link Styling */
+        #download-link {
+            display: block;
+            margin-top: 20px;
+            color: #e30e38;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        #download-link:hover {
+            color: #1f74d6;
+            transform: scale(1.0);
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        body.dark-mode #download-link {
+            color: #eb130c;
+        }
+
+        /* Dark Mode Toggle Button */
+        #dark-mode-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #f514b1;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-mode #dark-mode-toggle {
+            background-color: #0a0a0a;
+            color: white;
+            border: 2px solid white;
+        }
+
+        #dark-mode-toggle:active {
+            background-color: #1f74d6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+               
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            input[type="file"] {
+                width: 100%;
+                max-width: 200px;
+            }
+
+            button {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .container {
+                width: 100%;
+    
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            input[type="file"] {
+                width: 100%;
+                max-width: 180px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button id="dark-mode-toggle">Dark Mode</button>
+
+    <div class="container">
+        <h1>Merge PDF Files</h1>
+        <form id="pdf-form">
+            <input type="file" id="pdf1" accept="application/pdf" required>
+            <input type="file" id="pdf2" accept="application/pdf" required>
+            <button type="submit">Merge PDFs</button>
+        </form>
+        <a id="download-link" style="display: none;">Download Merged PDF</a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script>
+        document.getElementById("pdf-form").addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const pdf1File = document.getElementById("pdf1").files[0];
+            const pdf2File = document.getElementById("pdf2").files[0]; 
+
+            if (pdf1File && pdf2File) {
+                const mergedPdf = await mergePdfs([pdf1File, pdf2File]);
+                const downloadLink = document.getElementById("download-link");
+
+                downloadLink.href = URL.createObjectURL(mergedPdf);
+                downloadLink.download = "merged.pdf";
+                downloadLink.style.display = "block";
+                downloadLink.innerText = "Download Merged PDF";
+            }
+        });
+
+        async function mergePdfs(files) {
+            const pdfLib = window.PDFLib;
+            const mergedPdf = await pdfLib.PDFDocument.create();
+
+            for (const file of files) {
+                const existingPdfBytes = await file.arrayBuffer();
+                const existingPdf = await pdfLib.PDFDocument.load(existingPdfBytes);
+                const copiedPages = await mergedPdf.copyPages(existingPdf, existingPdf.getPageIndices());
+                copiedPages.forEach((page) => mergedPdf.addPage(page));
+            }
+
+            const mergedPdfBytes = await mergedPdf.save();
+            return new Blob([mergedPdfBytes], { type: "application/pdf" });
+        }
+
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById("dark-mode-toggle");
+        darkModeToggle.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            darkModeToggle.innerText = document.body.classList.contains("dark-mode") ? "Light Mode" : "Dark Mode";
+        });
+    </script>
+</body>
+</html>
